@@ -1,93 +1,359 @@
+<!DOCTYPE html>
 
- <!DOCTYPE HTML>
-<html >
-<head>
-  <meta charset="UTF-8">
+
+
   
-    <title>Understand BackTracking | Hexo</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
     
-    <meta name="author" content="John Doe">
     
-    <meta name="description" itemprop="description" content="轻松理解回溯法">
+  
+
+  
+
+  
+
+  
+
+  
+
+  
     
     
-    
-    
-    
-    
-    <link rel="stylesheet" href="/css/style.css">
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="算法," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="各类递归算法从某方面来说比较考察人的空间想象能力，本篇文章旨在加深对回溯法的理解。">
+<meta name="keywords" content="算法">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Understand BackTracking">
+<meta property="og:url" content="http://yoursite.com/2017/07/26/understand-backTracking/index.html">
+<meta property="og:site_name" content="ChAoS">
+<meta property="og:description" content="各类递归算法从某方面来说比较考察人的空间想象能力，本篇文章旨在加深对回溯法的理解。">
+<meta property="og:updated_time" content="2017-07-27T03:10:38.151Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Understand BackTracking">
+<meta name="twitter:description" content="各类递归算法从某方面来说比较考察人的空间想象能力，本篇文章旨在加深对回溯法的理解。">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/07/26/understand-backTracking/"/>
+
+
+
+
+
+  <title>Understand BackTracking | ChAoS</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 </head>
 
-  <body>
-    <header>
-      <div>
-		
-			<div id="imglogo">
-				<a href="/"><img src="/img/logo.svg" alt="Hexo" title="Hexo"/></a>
-			</div>
-			
-			<div id="textlogo">
-				<h1 class="site-name"><a href="/" title="Hexo">Hexo</a></h1>
-				<h2 class="blog-motto"></h2>
-			</div>
-			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
-			</a></div>
-			<nav class="animated">
-				<ul>
-					
-						<li><a href="/">Home</a></li>
-					
-						<li><a href="/archives">Archives</a></li>
-					
-					<li>
-					
-					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
-						<label>Search</label>
-						<input type="text" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
-						<input type="hidden" name="q" value="site:yoursite.com">
-					</form>
-					
-					</li>
-				</ul>
-			</nav>			
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">ChAoS</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Hello World</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
 </div>
 
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
     </header>
-    <div id="container">
-      <div id="main" class="post" itemscope itemprop="blogPost">
-	<article itemprop="articleBody"> 
-		<header class="article-info clearfix">
-  <h1 itemprop="name">
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
     
-      <a href="/2017/07/26/understand-backTracking/" title="Understand BackTracking" itemprop="url">Understand BackTracking</a>
-  </h1>
-  <p class="article-author">By
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/07/26/understand-backTracking/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Xinnan">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://github.com/zhangzuizui/graphs/blob/master/head1.jpg?raw=true">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="ChAoS">
+    </span>
+
     
-      <a href="http://yoursite.com" title="John Doe">John Doe</a>
-    </p>
-  <p class="article-time">
-    <time datetime="2017-07-26T14:37:23.000Z" itemprop="datePublished">2017-07-26</time>
-    更新日期:<time datetime="2017-07-26T16:29:45.748Z" itemprop="dateModified">2017-07-27</time>
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Understand BackTracking</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-26T22:37:23+08:00">
+                2017-07-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/算法和数据结构/" itemprop="url" rel="index">
+                    <span itemprop="name">算法和数据结构</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+              <div class="post-description">
+                  各类递归算法从某方面来说比较考察人的空间想象能力，本篇文章旨在加深对回溯法的理解。
+              </div>
+          
+
+        </div>
+      </header>
     
-  </p>
-</header>
-	<div class="article-content">
-		
-		
-		<div id="toc" class="toc-article">
-			<strong class="toc-title">文章目录</strong>
-		<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#写在开头"><span class="toc-number">1.</span> <span class="toc-text">写在开头</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#回溯法的基础结构"><span class="toc-number">1.1.</span> <span class="toc-text">回溯法的基础结构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#回溯法进阶"><span class="toc-number">1.2.</span> <span class="toc-text">回溯法进阶</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#练习"><span class="toc-number">1.3.</span> <span class="toc-text">练习</span></a></li></ol></li></ol>
-		</div>
-		
-		<h1 id="写在开头"><a href="#写在开头" class="headerlink" title="写在开头"></a>写在开头</h1><p>总之主要是为了帮助某呆理解回溯这一类算法写的，首先需要知道的是回溯法能解决什么问题？即什么遇到什么题型时应该使用回溯法？</p>
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="写在开头"><a href="#写在开头" class="headerlink" title="写在开头"></a>写在开头</h1><p>总之主要是为了帮助某呆理解回溯这一类算法写的，首先需要知道的是回溯法能解决什么问题？即什么遇到什么题型时应该使用回溯法？</p>
 <p>笔者认为回溯法解决的其实是类似于这样的一类组合问题：有len个人(数组长度为len)，每个人有k种选择(例如最简单的2种选择，吃饭/不吃饭)，求吃饭的人的所有组合。这是最基础的回溯题型，所有的题都能够通过在这个基础题解的基础上增加判断条件来达到最优时间复杂度的AC。</p>
-<h2 id="回溯法的基础结构"><a href="#回溯法的基础结构" class="headerlink" title="回溯法的基础结构"></a>回溯法的基础结构</h2><p>如对于上述问题，回溯体结构的C++代码如下，该题型的leetCode版如<a href="https://leetcode.com/problems/subsets/#/description" target="_blank" rel="external">leetCode78</a>，其题解为<a href="https://github.com/zhangzuizui/leetcode_with_cpp/blob/master/array/78_subsets.cpp" target="_blank" rel="external">这里</a>，这两个题的回溯函数体一模一样。</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"> * 注意函数形参里的两个引用，对于ans自然是要用引用的</div><div class="line"> * 因为函数的返回值类型是void，所以此处引用的目的自然是</div><div class="line"> * 将得到的一种排列组合方式加入到ans来获得执行函数的收益</div><div class="line"> * 这里的cur不使用引用也能获得正确答案，但是会提高空间复杂度</div><div class="line"> */</div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">BackTracking</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; people, <span class="keyword">int</span> begin, <span class="keyword">int</span> len,<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&gt;&amp; ans, <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&amp; cur)</span> </span>&#123;</div><div class="line"></div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = begin; i &lt; len; ++i) &#123;</div><div class="line">                cur.push_back(people[i]);</div><div class="line">                BackTracking(people, i+<span class="number">1</span>, len, ans, cur);</div><div class="line">                cur.pop_back();</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        ans.push_back(cur);</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h1 id="回溯法的基础结构"><a href="#回溯法的基础结构" class="headerlink" title="回溯法的基础结构"></a>回溯法的基础结构</h1><p>如对于上述问题，回溯体结构的C++代码如下，该题型的leetCode版如<a href="https://leetcode.com/problems/subsets/#/description" target="_blank" rel="external">leetCode78</a>，其题解为<a href="https://github.com/zhangzuizui/leetcode_with_cpp/blob/master/array/78_subsets.cpp" target="_blank" rel="external">这里</a>，这两个题的回溯函数体一模一样。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"> * 注意函数形参里的两个引用，对于ans自然是要用引用的</div><div class="line"> * 因为函数的返回值类型是void，所以此处引用的目的自然是</div><div class="line"> * 将得到的一种排列组合方式加入到ans来获得执行函数的收益</div><div class="line"> * 这里的cur不使用引用也能获得正确答案，但是会提高空间复杂度</div><div class="line"> */</div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">BackTracking</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; people, <span class="keyword">int</span> begin, <span class="keyword">int</span> len,<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&gt;&amp; ans, <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&amp; cur)</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = begin; i &lt; len; ++i) &#123;</div><div class="line">        cur.push_back(people[i]);</div><div class="line">        BackTracking(people, i+<span class="number">1</span>, len, ans, cur);</div><div class="line">        cur.pop_back();</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    ans.push_back(cur);</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>仅需要调用一遍上面的函数，就能得到正确的ans了，现已人数为3个人举例(人的名字分别为1，2，3)，上述函数的执行流程为：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">begin == 0, i == begin, cur.push_back - &gt; cur == [1], 调用BackTracking: begin == i + 1</div><div class="line">begin == 1, i == begin, cur.push_back - &gt; cur == [1, 2], 调用BackTracking: begin == i + 1</div><div class="line">begin == 2, i == begin, cur.push_back - &gt; cur == [1, 2, 3], 调用BackTracking: begin == i + 1</div><div class="line">begin == 3, i == begin, i &gt;= 3 跳出循环, ans == [[1, 2, 3]]</div><div class="line">begin == 2, i == 2, cur.pop_back -&gt; cur == [1, 2], i自增1</div><div class="line">begin == 2, i == 3, i &gt;= 3 跳出循环, ans == [[1, 2, 3], [1, 2]]</div><div class="line">begin == 1, i == 1, cur.pop_back -&gt; cur == [1], i自增1</div><div class="line">begin == 1, i == 2, cur.push_back -&gt; cur == [1, 3], 调用BackTracking: begin == i + 1</div><div class="line">begin == 3, i == begin, i &gt;= 3 跳出循环, ans == [[1, 2, 3], [1, 2], [1, 3]]</div><div class="line">begin == 1, i == 2, cur.pop_back -&gt; cur == [1], i自增1</div><div class="line">begin == 1, i == 3, i &gt;= 3 跳出循环, ans == [[1, 2, 3], [1, 2], [1, 3], [1]]</div><div class="line">begin == 0, i == 0, cur.pop_back -&gt; cur == [], i自增1</div><div class="line">begin == 0, i == 1, cur.push_back -&gt; cur == [2], 调用BackTracking: begin == i + 1</div><div class="line">begin == 2, i == begin, cur.push_back -&gt; cur == [2, 3], 调用BackingTracking: begin == i + 1</div><div class="line">begin == 3, i == begin, i &gt;= 3 跳出循环, ans == [[1, 2, 3], [1, 2], [1, 3], [1], [2, 3]]</div><div class="line">begin == 2, i == 2, cur.pop_back -&gt; cur == [2], i自增1</div><div class="line">begin == 2, i == 3, i &gt;= 3 跳出循环, ans == [[1, 2, 3], [1, 2], [1, 3], [1], [2, 3], [2]]</div><div class="line">begin == 0, i == 1, cur.pop_back -&gt; cur == [], i自增1</div><div class="line">begin == 0, i == 2, cur.push_back -&gt; cur == [3], 调用BackTracking: begin == i + 1</div><div class="line">begin == 3, i == begin, i &gt;= 3 跳出循环, ans == [[1, 2, 3], [1, 2], [1, 3], [1], [2, 3], [2], [3]]</div><div class="line">begin == 0, i == 2, cur.pop_back -&gt; cur == [], i自增1</div><div class="line">begin == 0, i == 3, i &gt;= 3 跳出循环, ans == [[1, 2, 3], [1, 2], [1, 3], [1], [2, 3], [2], [3], []]</div></pre></td></tr></table></figure>
 <p>用简单的语言表达这个过程就是，先每个人都选择吃饭，即[1, 2, 3]，然后回到序列[1, 2]，让第三个人不吃饭，即得到[1, 2]，然后回到序列[1]，让第二个人不吃饭，得到暂时序列[1]，接下来判断第三个人，分别得到[1, 3]和[1]，然后第一个人不吃饭第二个人吃饭……</p>
-<h2 id="回溯法进阶"><a href="#回溯法进阶" class="headerlink" title="回溯法进阶"></a>回溯法进阶</h2><p>对于所有使用回溯法的题，不论题目如何变化，无非就是以下几点</p>
+<h1 id="回溯法进阶"><a href="#回溯法进阶" class="headerlink" title="回溯法进阶"></a>回溯法进阶</h1><p>对于所有使用回溯法的题，不论题目如何变化，无非就是以下几点</p>
 <ol>
 <li><p>在回溯函数的参数中增加0个/多个变量，且进行某方面的控制操作(如果不增加其他的控制行为，那么每得到一种组合时，在流程上都遍历了所给数组的所有元素，将控制操作放到循环体之前，就能做到每次调用回溯函数时进行判断，符合判断条件时，将当前结果加入到最终结果序列中)，仅添加了这一点的题型如<a href="https://github.com/zhangzuizui/leetcode_with_cpp/blob/master/array/78_subsets.cpp" target="_blank" rel="external">leetCode39</a>，题解看<a href="https://github.com/zhangzuizui/leetcode_with_cpp/tree/master/array/39_combination_Sum.cpp" target="_blank" rel="external">这里</a>。</p>
 </li>
@@ -97,207 +363,254 @@
 </li>
 </ol>
 <p>因此，回溯函数体总结如下</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">BackTracking</span><span class="params">(blablah, <span class="keyword">int</span> begin, <span class="keyword">int</span> len, <span class="built_in">vector</span>&lt;&gt;&amp; ans, <span class="built_in">vector</span>&lt;&gt;&amp; cur)</span> </span>&#123;</div><div class="line"></div><div class="line">        <span class="comment">//提前结束某种遍历方式</span></div><div class="line">        <span class="keyword">if</span> (blablah) <span class="keyword">return</span></div><div class="line"></div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = begin; i &lt; len &amp;&amp; blablah; ++i) &#123;</div><div class="line"></div><div class="line">                <span class="comment">//当遍历到某种情况时，对该情况的遍历方式进行手动控制</span></div><div class="line">                <span class="keyword">if</span> (blablah) &#123;</div><div class="line">                        cur.push_back(bla[i]);</div><div class="line">                        Backtracking(blabla, i+<span class="number">1</span>, len, ans, cur);</div><div class="line">                        cur.pop_back();</div><div class="line">                &#125;</div><div class="line">                <span class="comment">//或者这样写</span></div><div class="line">                <span class="keyword">if</span> (blablah) <span class="keyword">continue</span>;</div><div class="line">                cur.push_back(bla[i]);</div><div class="line">                Backtracking(blabla, i+<span class="number">1</span>, len, ans, cur);</div><div class="line">                cur.pop_back();</div><div class="line"></div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="comment">//到这里所有数组中的所有元素都已经遍历过了，可以再进行某种判断以决定是否将cur加入到ans中</span></div><div class="line">        <span class="keyword">if</span> (blablah) ans.push_back(cur);</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">BackTracking</span><span class="params">(blablah, <span class="keyword">int</span> begin, <span class="keyword">int</span> len, <span class="built_in">vector</span>&lt;&gt;&amp; ans, <span class="built_in">vector</span>&lt;&gt;&amp; cur)</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="comment">//提前结束某种遍历方式</span></div><div class="line">    <span class="keyword">if</span> (blablah) <span class="keyword">return</span></div><div class="line"></div><div class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = begin; i &lt; len &amp;&amp; blablah; ++i) &#123;</div><div class="line"></div><div class="line">        <span class="comment">//当遍历到某种情况时，对该情况的遍历方式进行手动控制</span></div><div class="line">        <span class="keyword">if</span> (blablah) &#123;</div><div class="line">            cur.push_back(bla[i]);</div><div class="line">            Backtracking(blabla, i+<span class="number">1</span>, len, ans, cur);</div><div class="line">            cur.pop_back();</div><div class="line">        &#125;</div><div class="line">        <span class="comment">//或者这样写</span></div><div class="line">        <span class="keyword">if</span> (blablah) <span class="keyword">continue</span>;</div><div class="line">        cur.push_back(bla[i]);</div><div class="line">        Backtracking(blabla, i+<span class="number">1</span>, len, ans, cur);</div><div class="line">        cur.pop_back();</div><div class="line"></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">//到这里所有数组中的所有元素都已经遍历过了，可以再进行某种判断以决定是否将cur加入到ans中</span></div><div class="line">    <span class="keyword">if</span> (blablah) ans.push_back(cur);</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <h2 id="练习"><a href="#练习" class="headerlink" title="练习"></a>练习</h2><p><a href="https://leetcode.com/problems/subsets-ii/#/description" target="_blank" rel="external">leetCode90</a> <a href="https://github.com/zhangzuizui/leetcode_with_cpp/blob/master/array/90_subsets_II.cpp" target="_blank" rel="external">题解</a></p>
-<p><a href="https://leetcode.com/problems/Valid-Parentheses/#/description" target="_blank" rel="external">leetCode20</a> 题解暂时还没有做出我想放的那一版</p>
-  
-	</div>
-		<footer class="article-footer clearfix">
+<p><a href="https://leetcode.com/problems/Valid-Parentheses/#/description" target="_blank" rel="external">leetCode20</a> 题解暂时还没有做出我想放的那一版。</p>
+<p><a href="https://leetcode.com/problems/triangle/#/description" target="_blank" rel="external">leetCode120</a> 这个题虽然最佳做法是动态规划，但是从原理上来说也是可以用回溯来做的，尝试一下。回溯法题解尚未放出。</p>
 
-  <div class="article-tags">
-  
-  <span></span> <a href="/tags/算法和数据结构/">算法和数据结构</a>
-  </div>
-
-
-
-
-<div class="article-share" id="share">
-
-  <div data-url="http://yoursite.com/2017/07/26/understand-backTracking/" data-title="Understand BackTracking | Hexo" data-tsina="null" class="share clearfix">
-  </div>
-
-</div>
-</footer>   	       
-	</article>
-	
-<nav class="article-nav clearfix">
- 
-
-<div class="next">
-<a href="/2017/07/26/understand-KMP/"  title="Understand KMP">
- <strong>NEXT:</strong><br/> 
- <span>Understand KMP
-</span>
-</a>
-</div>
-
-</nav>
-
-	
-</div>  
-      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
-
-  <div id="toc" class="toc-aside">
-  <strong class="toc-title">文章目录</strong>
-  <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#写在开头"><span class="toc-number">1.</span> <span class="toc-text">写在开头</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#回溯法的基础结构"><span class="toc-number">1.1.</span> <span class="toc-text">回溯法的基础结构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#回溯法进阶"><span class="toc-number">1.2.</span> <span class="toc-text">回溯法进阶</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#练习"><span class="toc-number">1.3.</span> <span class="toc-text">练习</span></a></li></ol></li></ol>
-  </div>
-
-<div id="asidepart">
-<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
-<aside class="clearfix">
-
-  
-
-  
-<div class="tagslist">
-	<p class="asidetitle">标签</p>
-		<ul class="clearfix">
-		
-			<li><a href="/tags/test/" title="test">test<sup>1</sup></a></li>
-		
-			<li><a href="/tags/算法和数据结构/" title="算法和数据结构">算法和数据结构<sup>2</sup></a></li>
-		
-		</ul>
-</div>
-
-
-  <div class="rsspart">
-	<a href="null" target="_blank" title="rss">RSS 订阅</a>
-</div>
-
-</aside>
-</div>
-    </div>
-    <footer><div id="footer" >
-	
-	<div class="line">
-		<span></span>
-		<div class="author"></div>
-	</div>
-	
-	
-	<div class="social-font clearfix">
-		
-		
-		
-		
-		
-	</div>
-		<p class="copyright">Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/A-limon/pacman" target="_blank" title="Pacman">Pacman</a> © 2017 
-		
-		<a href="http://yoursite.com" target="_blank" title="John Doe">John Doe</a>
-		
-		</p>
-</div>
-</footer>
-    <script src="/js/jquery-2.1.0.min.js"></script>
-<script type="text/javascript">
-$(document).ready(function(){ 
-  $('.navbar').click(function(){
-    $('header nav').toggleClass('shownav');
-  });
-  var myWidth = 0;
-  function getSize(){
-    if( typeof( window.innerWidth ) == 'number' ) {
-      myWidth = window.innerWidth;
-    } else if( document.documentElement && document.documentElement.clientWidth) {
-      myWidth = document.documentElement.clientWidth;
-    };
-  };
-  var m = $('#main'),
-      a = $('#asidepart'),
-      c = $('.closeaside'),
-      o = $('.openaside');
-  $(window).resize(function(){
-    getSize(); 
-    if (myWidth >= 1024) {
-      $('header nav').removeClass('shownav');
-    }else
-    {
-      m.removeClass('moveMain');
-      a.css('display', 'block').removeClass('fadeOut');
-      o.css('display', 'none');
       
-      $('#toc.toc-aside').css('display', 'none');
+    </div>
+
+    <div>
+      
         
-    }
-  });
-  c.click(function(){
-    a.addClass('fadeOut').css('display', 'none');
-    o.css('display', 'block').addClass('fadeIn');
-    m.addClass('moveMain');
-  });
-  o.click(function(){
-    o.css('display', 'none').removeClass('beforeFadeIn');
-    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
-    m.removeClass('moveMain');
-  });
-  $(window).scroll(function(){
-    o.css("top",Math.max(80,260-$(this).scrollTop()));
-  });
-});
-</script>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/算法/" rel="tag"># 算法</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/07/26/understand-KMP/" rel="next" title="Understand KMP">
+                <i class="fa fa-chevron-left"></i> Understand KMP
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="https://github.com/zhangzuizui/graphs/blob/master/head1.jpg?raw=true"
+               alt="Xinnan" />
+          <p class="site-author-name" itemprop="name">Xinnan</p>
+           
+              <p class="site-description motion-element" itemprop="description">To cure sometimes, to relieve often, to comfort always.</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">1</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">1</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#写在开头"><span class="nav-number">1.</span> <span class="nav-text">写在开头</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#回溯法的基础结构"><span class="nav-number">2.</span> <span class="nav-text">回溯法的基础结构</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#回溯法进阶"><span class="nav-number">3.</span> <span class="nav-text">回溯法进阶</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#练习"><span class="nav-number">3.1.</span> <span class="nav-text">练习</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Xinnan</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
 
 <script type="text/javascript">
-$(document).ready(function(){ 
-  var ai = $('.article-content>iframe'),
-      ae = $('.article-content>embed'),
-      t  = $('#toc'),
-      h  = $('article h2')
-      ah = $('article h2'),
-      ta = $('#toc.toc-aside'),
-      o  = $('.openaside'),
-      c  = $('.closeaside');
-  if(ai.length>0){
-    ai.wrap('<div class="video-container" />');
-  };
-  if(ae.length>0){
-   ae.wrap('<div class="video-container" />');
-  };
-  if(ah.length==0){
-    t.css('display','none');
-  }else{
-    c.click(function(){
-      ta.css('display', 'block').addClass('fadeIn');
-    });
-    o.click(function(){
-      ta.css('display', 'none');
-    });
-    $(window).scroll(function(){
-      ta.css("top",Math.max(140,320-$(this).scrollTop()));
-    });
-  };
-});
-</script>
-
-
-<script type="text/javascript">
-$(document).ready(function(){ 
-  var $this = $('.share'),
-      url = $this.attr('data-url'),
-      encodedUrl = encodeURIComponent(url),
-      title = $this.attr('data-title'),
-      tsina = $this.attr('data-tsina');
-  var html = [
-  '<a href="#" class="overlay" id="qrcode"></a>',
-  '<div class="qrcode clearfix"><span>扫描二维码分享到微信朋友圈</span><a class="qrclose" href="#share"></a><strong>Loading...Please wait</strong><img id="qrcode-pic" data-src="http://s.jiathis.com/qrcode.php?url=' + encodedUrl + '"/></div>',
-  '<a href="#textlogo" class="article-back-to-top" title="Top"></a>',
-  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
-  '<a href="#qrcode" class="article-share-qrcode" title="QRcode"></a>',
-  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
-  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="Weibo"></a>',
-  '<span title="Share to"></span>'
-  ].join('');
-  $this.append(html);
-  $('.article-share-qrcode').click(function(){
-    var imgSrc = $('#qrcode-pic').attr('data-src');
-    $('#qrcode-pic').attr('src', imgSrc);
-    $('#qrcode-pic').load(function(){
-        $('.qrcode strong').text(' ');
-    });
-  });
-});     
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
 </script>
 
 
@@ -305,5 +618,117 @@ $(document).ready(function(){
 
 
 
-  </body>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
 </html>

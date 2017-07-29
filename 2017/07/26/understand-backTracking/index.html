@@ -100,7 +100,7 @@
 <meta property="og:url" content="http://yoursite.com/2017/07/26/understand-backTracking/index.html">
 <meta property="og:site_name" content="ChAoS">
 <meta property="og:description" content="各类递归算法从某方面来说比较考察人的空间想象能力，本篇文章旨在加深对回溯法的理解。">
-<meta property="og:updated_time" content="2017-07-27T03:10:38.151Z">
+<meta property="og:updated_time" content="2017-07-29T05:10:56.651Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Understand BackTracking">
 <meta name="twitter:description" content="各类递归算法从某方面来说比较考察人的空间想象能力，本篇文章旨在加深对回溯法的理解。">
@@ -365,7 +365,7 @@
 <p>用简单的语言表达这个过程就是，先每个人都选择吃饭，即[1, 2, 3]，然后回到序列[1, 2]，让第三个人不吃饭，即得到[1, 2]，然后回到序列[1]，让第二个人不吃饭，得到暂时序列[1]，接下来判断第三个人，分别得到[1, 3]和[1]，然后第一个人不吃饭第二个人吃饭……</p>
 <h1 id="回溯法进阶"><a href="#回溯法进阶" class="headerlink" title="回溯法进阶"></a>回溯法进阶</h1><p>对于所有使用回溯法的题，不论题目如何变化，无非就是以下几点</p>
 <ol>
-<li><p>在回溯函数的参数中增加0个/多个变量，且进行某方面的控制操作(如果不增加其他的控制行为，那么每得到一种组合时，在流程上都遍历了所给数组的所有元素，将控制操作放到循环体之前，就能做到每次调用回溯函数时进行判断，符合判断条件时，将当前结果加入到最终结果序列中)，仅添加了这一点的题型如<a href="https://github.com/zhangzuizui/leetcode_with_cpp/blob/master/array/78_subsets.cpp" target="_blank" rel="external">leetCode39</a>，题解看<a href="https://github.com/zhangzuizui/leetcode_with_cpp/tree/master/array/39_combination_Sum.cpp" target="_blank" rel="external">这里</a>。</p>
+<li><p>在回溯函数的参数中增加0个/多个变量，且进行某方面的控制操作(如果不增加其他的控制行为，那么每得到一种组合时，在流程上都遍历了所给数组的所有元素，将控制操作放到循环体之前，就能做到每次调用回溯函数时进行判断，符合判断条件时，将当前结果加入到最终结果序列中)，仅添加了这一点的题型如<a href="https://leetcode.com/problems/combination-sum/" target="_blank" rel="external">leetCode39</a>，题解看<a href="https://github.com/zhangzuizui/leetcode_with_cpp/tree/master/array/39_combination_Sum.cpp" target="_blank" rel="external">这里</a>。</p>
 </li>
 <li><p>在循环体内，外嵌一个判断条件，以对某种情况下的遍历状况进行人工干预，比如<a href="https://leetcode.com/problems/combination-sum-ii/#/description" target="_blank" rel="external">leetCode40</a>，题解看<a href="https://github.com/zhangzuizui/leetcode_with_cpp/blob/master/array/40_combination_sum_2.cpp" target="_blank" rel="external">这里</a>，在该题中，进行人工干预的结果的目的是取消了重复组合的生成。</p>
 </li>
@@ -428,6 +428,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/07/27/Boyer-Moore/" rel="prev" title="Boyer-Moore">
+                Boyer-Moore <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -500,7 +504,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-count">3</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>

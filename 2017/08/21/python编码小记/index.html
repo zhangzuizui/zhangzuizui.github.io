@@ -77,7 +77,7 @@
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="算法," />
+  <meta name="keywords" content="-python," />
 
 
 
@@ -93,17 +93,20 @@
 
 
 
-<meta name="description" content="由于维基百科上以及各种版本的算法描述上赘述太复杂，特此记录自己对KMP的理解。">
-<meta name="keywords" content="算法">
+<meta name="description" content="-被python2和python3的编码(主要是python2)整的欲仙欲死的我今天总算是解放了">
+<meta name="keywords" content="-python">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Understand KMP">
-<meta property="og:url" content="http://yoursite.com/2017/07/26/understand-KMP/index.html">
+<meta property="og:title" content="python编码小记">
+<meta property="og:url" content="http://yoursite.com/2017/08/21/python编码小记/index.html">
 <meta property="og:site_name" content="ChAoS">
-<meta property="og:description" content="由于维基百科上以及各种版本的算法描述上赘述太复杂，特此记录自己对KMP的理解。">
-<meta property="og:updated_time" content="2017-07-27T07:57:49.906Z">
+<meta property="og:description" content="-被python2和python3的编码(主要是python2)整的欲仙欲死的我今天总算是解放了">
+<meta property="og:image" content="https://github.com/zhangzuizui/graphs/blob/master/py3encoding.png">
+<meta property="og:image" content="https://github.com/zhangzuizui/graphs/blob/master/py3encoding.png">
+<meta property="og:updated_time" content="2017-08-21T09:52:09.539Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Understand KMP">
-<meta name="twitter:description" content="由于维基百科上以及各种版本的算法描述上赘述太复杂，特此记录自己对KMP的理解。">
+<meta name="twitter:title" content="python编码小记">
+<meta name="twitter:description" content="-被python2和python3的编码(主要是python2)整的欲仙欲死的我今天总算是解放了">
+<meta name="twitter:image" content="https://github.com/zhangzuizui/graphs/blob/master/py3encoding.png">
 
 
 
@@ -131,13 +134,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2017/07/26/understand-KMP/"/>
+  <link rel="canonical" href="http://yoursite.com/2017/08/21/python编码小记/"/>
 
 
 
 
 
-  <title>Understand KMP | ChAoS</title>
+  <title>python编码小记 | ChAoS</title>
   
 
 
@@ -266,7 +269,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/07/26/understand-KMP/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/08/21/python编码小记/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Xinnan">
@@ -283,7 +286,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Understand KMP</h1>
+          <h1 class="post-title" itemprop="name headline">python编码小记</h1>
         
 
         <div class="post-meta">
@@ -295,8 +298,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-26T15:52:57+08:00">
-                2017-07-26
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-21T15:38:28+08:00">
+                2017-08-21
               </time>
             
 
@@ -318,8 +321,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/算法和数据结构/" itemprop="url" rel="index">
-                    <span itemprop="name">算法和数据结构</span>
+                  <a href="/categories/数据处理/" itemprop="url" rel="index">
+                    <span itemprop="name">数据处理</span>
                   </a>
                 </span>
 
@@ -342,7 +345,7 @@
 
           
               <div class="post-description">
-                  由于维基百科上以及各种版本的算法描述上赘述太复杂，特此记录自己对KMP的理解。
+                  -被python2和python3的编码(主要是python2)整的欲仙欲死的我今天总算是解放了
               </div>
           
 
@@ -356,29 +359,20 @@
       
 
       
-        <p> 一个解释超级清楚的歪果仁版本: <a href="http://jakeboxer.com/blog/2009/12/13/the-knuth-morris-pratt-algorithm-in-my-own-words/" target="_blank" rel="external">The Knuth-Morris-Pratt Algorithm in my own words</a></p>
-<h1 id="理解部分匹配表"><a href="#理解部分匹配表" class="headerlink" title="理解部分匹配表"></a>理解部分匹配表</h1><p>部分匹配表是KMP算法的核心，也是最难理解的地方，其形式如下:</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">string: a b a b a c a b a b</div><div class="line">index:  0 1 2 3 4 5 6 7 8 9</div><div class="line">value:  0 0 1 2 3 0 1 2 3 4</div></pre></td></tr></table></figure>
-<p>上面的部分匹配表中，有10个部分，其每一部分的<em>value</em>仅与当前部分有关，如当关注点在<em>index==5</em>的时候，此处的<em>value</em>仅与前六个字符，即”ababac”有关。</p>
-<p>然后为了进一步理解这个<em>value</em>，这里引入了<strong>前缀</strong>和<strong>后缀</strong>两个概念。</p>
-<h2 id="前缀-proper-prefixes"><a href="#前缀-proper-prefixes" class="headerlink" title="前缀(proper prefixes)"></a>前缀(proper prefixes)</h2><p>字符串的真子集，集合中的元素包含字符串首字符，并且对应字符的下标在原串中连续。如：</p>
-<p>study: { s, st, stu, stud }</p>
-<h2 id="后缀-proper-suffixes"><a href="#后缀-proper-suffixes" class="headerlink" title="后缀(proper suffixes)"></a>后缀(proper suffixes)</h2><p>字符串的真子集，集合中的元素包含字符串最后一个字符，并且对应字符的下标在原串中连续。如：</p>
-<p>study: { y, dy, udy, tudy }</p>
-<h3 id="value的含义"><a href="#value的含义" class="headerlink" title="value的含义"></a><em>value</em>的含义</h3><p>接下来<em>value</em>就很好理解了，它代表的就是当前字符串的前缀与后缀中，相同元素的最长长度，这个长度被称为<strong>partial match lenth</strong>。</p>
-<h2 id="value构造过程-伪代码"><a href="#value构造过程-伪代码" class="headerlink" title="value构造过程(伪代码)"></a><em>value</em>构造过程(伪代码)</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">when index == <span class="number">0</span>:</div><div class="line">    current_string == <span class="string">"a"</span></div><div class="line">    proper_prefixes == []</div><div class="line">    proper_suffixes == []</div><div class="line">    because proper_prefixes <span class="keyword">is</span> empty <span class="keyword">and</span> proper_suffixes <span class="keyword">is</span> empty</div><div class="line">    partial_match_lenth = <span class="number">0</span></div><div class="line">    value = partial_match_lenth</div><div class="line">...</div><div class="line">when index == <span class="number">4</span>:</div><div class="line">    current_string == <span class="string">"ababa"</span></div><div class="line">    proper_prefixes == [<span class="string">"a"</span>, <span class="string">"ab"</span>, <span class="string">"aba"</span>, <span class="string">"abab"</span>]</div><div class="line">    proper_suffixes == [<span class="string">"a"</span>, <span class="string">"ba"</span>, <span class="string">"aba"</span>, <span class="string">"baba"</span>]</div><div class="line">    <span class="comment"># 因为目的是取最长的部分匹配长度，所以从长的子串开始比较即可</span></div><div class="line">    because proper_prefixes[<span class="number">2</span>] == proper_suffixes[<span class="number">2</span>]</div><div class="line">    partial_match_lenth = <span class="number">3</span></div><div class="line">    value = <span class="number">3</span></div><div class="line">...</div></pre></td></tr></table></figure>
-<h1 id="部分匹配表的使用"><a href="#部分匹配表的使用" class="headerlink" title="部分匹配表的使用"></a>部分匹配表的使用</h1><p>部分匹配表的作用是，对于最基本的字符串匹配方法而言，跳过那些不必要的比较。如：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">bcababaababacabab</div><div class="line">  |||||</div><div class="line">  ababacabab</div></pre></td></tr></table></figure>
-<p>此时<em>index==5</em>的字符匹配失败，此时就查看前5个字符的属性，其<em>value==3</em>，那么就向后滑动<em>5-3==2</em>个位置，情形如下：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">bcababaababacabab</div><div class="line">    |||?</div><div class="line">    ababacabab</div></pre></td></tr></table></figure>
-<p>因为<em>value==3</em>，所以接着<em>index==3</em>处开始比较。</p>
-<p>代入前缀后缀的概念进行理解就是，当匹配到下面的情况时，当前关注的子字符串为”ababa”，为了跳过不必要的比较(因为此时<em>index==5</em>的”c”与对应位置的”a”不相同，所以按最基本的字符串匹配方式，应该把匹配的字符串向右移动一位，再用<em>index==0</em>处的”a”与对应位置的”b”进行比较)，就需要找到能够跳过的最大长度。</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">bc[ababa]ababacabab</div><div class="line">   |||||</div><div class="line">  [ababa]cabab</div></pre></td></tr></table></figure>
-<p>那么前缀和后缀有什么用？易知此时的最长匹配缀为”aba”，这个代表着只需要把”ababa”这个当前串进行简单的移动，就能让这个字符串匹配长度最大的前缀与后缀在位置上相对应。</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">ab[aba](后缀)</div><div class="line">   |||</div><div class="line">  [aba](前缀)ba</div></pre></td></tr></table></figure>
-<p>即被匹配的字符串的当前子串的后缀，与用于匹配的字符串的当前子串的前缀，位置相对应。</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">bc[ab(aba)(后缀)]ababacabab</div><div class="line">    1 234</div><div class="line">    [(aba)(前缀)ba]cabab</div></pre></td></tr></table></figure>
-<p>这样就减少了上面数字标记的4个位置的比较，同时也体现了找前缀集合和后缀集合中，具有最长长度的相同元素的理由：减少更多的比较次数。</p>
+        <h1 id="最大的不同－－python2与python3字符串的默认存储方式"><a href="#最大的不同－－python2与python3字符串的默认存储方式" class="headerlink" title="最大的不同－－python2与python3字符串的默认存储方式"></a>最大的不同－－python2与python3字符串的默认存储方式</h1><h2 id="python3"><a href="#python3" class="headerlink" title="python3"></a>python3</h2><p>python3的编码就十分舒心了</p>
+<p><img src="https://github.com/zhangzuizui/graphs/blob/master/py3encoding.png" alt="py3"></p>
+<p>如图可以发现python3中仿佛去掉了u’’这种东西，输入的u’\u4e2d\u6587’，u’中文’和’中文’是同一个东西，并以Unicode字符的形式存放在变量里，len(s)代表的是字符串的长度，若需要得到字符串的编码，则需要对其encoding，编码后得到的bytes类型数据表示字符串占的字节数</p>
+<h2 id="python2"><a href="#python2" class="headerlink" title="python2"></a>python2</h2><p>python2就有话要说了</p>
+<p><img src="https://github.com/zhangzuizui/graphs/blob/master/py3encoding.png" alt="py2"></p>
+<p>可以发现对于’中文’，python2它直接就以utf8编码后的字节码？形式存放了，加u后，才是以Unicode的形式存放。并且没有bytes这个类型，而是专门的有一个Unicode类。</p>
+<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>综上，python2和python3在编码上最大的不同应该是在默认的存储方式上，并且相比之下python2的编码逻辑略显混乱，其实只需要注意到默认存储方式不同这一点，就能很好的处理python2的编码了</p>
+<h1 id="编码范围顺便一记"><a href="#编码范围顺便一记" class="headerlink" title="编码范围顺便一记"></a>编码范围顺便一记</h1><h2 id="各常用字符Unicode编码"><a href="#各常用字符Unicode编码" class="headerlink" title="各常用字符Unicode编码"></a>各常用字符Unicode编码</h2><p>中文：u4e00-u9fa5</p>
+<p>韩文：x3130-x318F xAC00-xD7A3</p>
+<p>日文：u0800-u4e00</p>
+<p>@：uff20，</p>
+<p>shitf + (1-9)：uff01-uff09 需要注意的是因为@是uff20，所以</p>
+<p>“：uff02</p>
+<p>全角数字：uff10-uff19</p>
 
       
     </div>
@@ -408,7 +402,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/算法/" rel="tag"># 算法</a>
+            <a href="/tags/python/" rel="tag"># -python</a>
           
         </div>
       
@@ -421,15 +415,15 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
+              <a href="/2017/08/14/通过正则匹配保留汉字及个别特殊符号/" rel="next" title="通过正则匹配保留汉字及某些特定字符">
+                <i class="fa fa-chevron-left"></i> 通过正则匹配保留汉字及某些特定字符
+              </a>
+            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/07/26/understand-backTracking/" rel="prev" title="Understand BackTracking">
-                Understand BackTracking <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -559,7 +553,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#理解部分匹配表"><span class="nav-number">1.</span> <span class="nav-text">理解部分匹配表</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#前缀-proper-prefixes"><span class="nav-number">1.1.</span> <span class="nav-text">前缀(proper prefixes)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#后缀-proper-suffixes"><span class="nav-number">1.2.</span> <span class="nav-text">后缀(proper suffixes)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#value的含义"><span class="nav-number">1.2.1.</span> <span class="nav-text">value的含义</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#value构造过程-伪代码"><span class="nav-number">1.3.</span> <span class="nav-text">value构造过程(伪代码)</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#部分匹配表的使用"><span class="nav-number">2.</span> <span class="nav-text">部分匹配表的使用</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#最大的不同－－python2与python3字符串的默认存储方式"><span class="nav-number">1.</span> <span class="nav-text">最大的不同－－python2与python3字符串的默认存储方式</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#python3"><span class="nav-number">1.1.</span> <span class="nav-text">python3</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#python2"><span class="nav-number">1.2.</span> <span class="nav-text">python2</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#小结"><span class="nav-number">1.3.</span> <span class="nav-text">小结</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#编码范围顺便一记"><span class="nav-number">2.</span> <span class="nav-text">编码范围顺便一记</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#各常用字符Unicode编码"><span class="nav-number">2.1.</span> <span class="nav-text">各常用字符Unicode编码</span></a></li></ol></li></ol></div>
             
 
           </div>

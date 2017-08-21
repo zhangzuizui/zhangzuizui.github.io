@@ -100,13 +100,13 @@
 <meta property="og:url" content="http://yoursite.com/2017/08/21/python编码小记/index.html">
 <meta property="og:site_name" content="ChAoS">
 <meta property="og:description" content="-被python2和python3的编码(主要是python2)整的欲仙欲死的我今天总算是解放了">
-<meta property="og:image" content="https://github.com/zhangzuizui/graphs/blob/master/py3encoding.png">
-<meta property="og:image" content="https://github.com/zhangzuizui/graphs/blob/master/py3encoding.png">
-<meta property="og:updated_time" content="2017-08-21T09:52:09.539Z">
+<meta property="og:image" content="https://raw.githubusercontent.com/zhangzuizui/graphs/master/py3encoding.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/zhangzuizui/graphs/master/py2encoding.png">
+<meta property="og:updated_time" content="2017-08-21T09:55:33.941Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="python编码小记">
 <meta name="twitter:description" content="-被python2和python3的编码(主要是python2)整的欲仙欲死的我今天总算是解放了">
-<meta name="twitter:image" content="https://github.com/zhangzuizui/graphs/blob/master/py3encoding.png">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/zhangzuizui/graphs/master/py3encoding.png">
 
 
 
@@ -360,10 +360,10 @@
 
       
         <h1 id="最大的不同－－python2与python3字符串的默认存储方式"><a href="#最大的不同－－python2与python3字符串的默认存储方式" class="headerlink" title="最大的不同－－python2与python3字符串的默认存储方式"></a>最大的不同－－python2与python3字符串的默认存储方式</h1><h2 id="python3"><a href="#python3" class="headerlink" title="python3"></a>python3</h2><p>python3的编码就十分舒心了</p>
-<p><img src="https://github.com/zhangzuizui/graphs/blob/master/py3encoding.png" alt="py3"></p>
+<p><img src="https://raw.githubusercontent.com/zhangzuizui/graphs/master/py3encoding.png" alt="py3"></p>
 <p>如图可以发现python3中仿佛去掉了u’’这种东西，输入的u’\u4e2d\u6587’，u’中文’和’中文’是同一个东西，并以Unicode字符的形式存放在变量里，len(s)代表的是字符串的长度，若需要得到字符串的编码，则需要对其encoding，编码后得到的bytes类型数据表示字符串占的字节数</p>
 <h2 id="python2"><a href="#python2" class="headerlink" title="python2"></a>python2</h2><p>python2就有话要说了</p>
-<p><img src="https://github.com/zhangzuizui/graphs/blob/master/py3encoding.png" alt="py2"></p>
+<p><img src="https://raw.githubusercontent.com/zhangzuizui/graphs/master/py2encoding.png" alt="py2"></p>
 <p>可以发现对于’中文’，python2它直接就以utf8编码后的字节码？形式存放了，加u后，才是以Unicode的形式存放。并且没有bytes这个类型，而是专门的有一个Unicode类。</p>
 <h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>综上，python2和python3在编码上最大的不同应该是在默认的存储方式上，并且相比之下python2的编码逻辑略显混乱，其实只需要注意到默认存储方式不同这一点，就能很好的处理python2的编码了</p>
 <h1 id="编码范围顺便一记"><a href="#编码范围顺便一记" class="headerlink" title="编码范围顺便一记"></a>编码范围顺便一记</h1><h2 id="各常用字符Unicode编码"><a href="#各常用字符Unicode编码" class="headerlink" title="各常用字符Unicode编码"></a>各常用字符Unicode编码</h2><p>中文：u4e00-u9fa5</p>

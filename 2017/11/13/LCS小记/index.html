@@ -100,7 +100,7 @@
 <meta property="og:url" content="http://yoursite.com/2017/11/13/LCS小记/index.html">
 <meta property="og:site_name" content="ChAoS">
 <meta property="og:description" content="算法导论DP章节的LCS踩坑点醒型笔记">
-<meta property="og:updated_time" content="2017-11-13T06:30:05.629Z">
+<meta property="og:updated_time" content="2017-11-13T07:09:33.540Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="LCS小记">
 <meta name="twitter:description" content="算法导论DP章节的LCS踩坑点醒型笔记">
@@ -368,6 +368,8 @@
 
       
         <h1 id="十分关键"><a href="#十分关键" class="headerlink" title="十分关键"></a>十分关键</h1><p>书上的示例是求LCS的长度，按数组b找回的是一个LCS，若想要找到全部的LCS，需在遇到以下情况时，进行一个类似于二叉树结构的记录，然后使用深度优先查找进行搜索。<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">c[i<span class="number">-1</span>, j] == c[i, j<span class="number">-1</span>]</div></pre></td></tr></table></figure></p>
+<h1 id="透过题看本质"><a href="#透过题看本质" class="headerlink" title="透过题看本质"></a>透过题看本质</h1><p>求LCS长度的时候，可以通过一个2D-array记录当前LCS长度，以最终求得LCS长度。由于每个子问题求得的都是当前状态下的最长子序列长度，所以最后得到的就是需要求得的最长子序列长度，有那么点贪心算法的意思（不过实质上是不同的）。那么类似的，例如<a href="https://leetcode.com/problems/minimum-ascii-delete-sum-for-two-strings/description/" target="_blank" rel="external">LeetCode712</a>，就可以通过每个子问题求得该子问题下需删除的最小ASCII，来求解最终的最小删除ASCII。</p>
+<h1 id="一些总结"><a href="#一些总结" class="headerlink" title="一些总结"></a>一些总结</h1><p>注意DP题中的两个问题：一个解和所有解，对于求一个解的题，可以通过每个子问题都求得要求的解，来得到最终解；而对于所有解问题，则需要保存全部状态，更加麻烦。</p>
 
       
     </div>
@@ -548,7 +550,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#十分关键"><span class="nav-number">1.</span> <span class="nav-text">十分关键</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#十分关键"><span class="nav-number">1.</span> <span class="nav-text">十分关键</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#透过题看本质"><span class="nav-number">2.</span> <span class="nav-text">透过题看本质</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#一些总结"><span class="nav-number">3.</span> <span class="nav-text">一些总结</span></a></li></ol></div>
             
 
           </div>
